@@ -1,0 +1,1944 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 14,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 11,
+      "panels": [],
+      "title": "검사 결과 요약 (오늘)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "TOTAL",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE Item = 'PASS' AND date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "GOOD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE Item LIKE '%NoDevice%' AND date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "NO DEVICE",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE Item != 'PASS' AND Item NOT LIKE '%NoDevice%' AND Item NOT LIKE '%XOut%' AND date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "REJECT",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE Item LIKE '%XOut%' AND date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "X-OUT",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 17,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT ROUND(SUM(CASE WHEN Item='PASS' THEN 1.0 ELSE 0 END)/COUNT(*)*100, 2) AS value FROM inspection_results WHERE date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "YIELD",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "UCL 99% / LCL 98%. 관리 한계선 이탈 시 공정 이상 의심.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 90,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 98
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "target"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    8,
+                    4
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "gray",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "목표(CL) 99%"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, ROUND(SUM(CASE WHEN Item = 'PASS' THEN 1.0 ELSE 0 END) / COUNT(*) * 100, 2) AS yield FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M:00', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        },
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, 99.0 AS target FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M:00', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "B",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "수율 (Yield) 추이 — SPC 관리도",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "LogType: 1=System(장비이상), 4=LOT, 5=Recipe변경",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "구분"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 96
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 39,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "시각"
+          }
+        ]
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS 시각, CASE LogType WHEN 1 THEN 'System' WHEN 4 THEN 'LOT' WHEN 5 THEN 'Recipe' ELSE CAST(LogType AS TEXT) END AS 구분, substr(Description,1,100) AS 내용 FROM histories WHERE Time >= datetime('now', '-15 hours') AND LogType IN (1,4,5) ORDER BY Time DESC LIMIT 100",
+          "refId": "A",
+          "timeColumns": [
+            "시각"
+          ]
+        }
+      ],
+      "title": "장비 이벤트 타임라인 (유지보수 이력)",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 18,
+      "panels": [],
+      "title": "MARK 검사 (InspectionType=1)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 19
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=1 AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "MARK — TOTAL",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 19
+      },
+      "id": 20,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=1 AND Item='PASS' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "MARK — GOOD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 19
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=1 AND Item LIKE '%NoDevice%' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "MARK — NO DEVICE",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 19
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=1 AND Item LIKE '%Reject%' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "MARK — REJECT MARK",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 19
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=1 AND Item LIKE '%DataCode%' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "MARK — 2D CODE FAIL",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 19
+      },
+      "id": 24,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT ROUND(SUM(CASE WHEN Item='PASS' THEN 1.0 ELSE 0 END)/COUNT(*)*100,2) AS value FROM inspection_results WHERE InspectionType=1 AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "MARK — YIELD",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 25,
+      "panels": [],
+      "title": "BGA 검사 (InspectionType=3)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 23
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=3 AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "BGA — TOTAL",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 23
+      },
+      "id": 27,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=3 AND Item='PASS' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "BGA — GOOD",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 23
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=3 AND Item LIKE '%NoDevice%' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "BGA — NO DEVICE",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "CONTAMINATION / TILT / MISSING_BALL / LEAD_OPEN / LEAD_SHORT",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 23
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=3 AND Item IN ('CONTAMINATION','TILT','MISSING_BALL','LEAD_OPEN','LEAD_SHORT') AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "BGA — BGA 결함",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 23
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE InspectionType=3 AND Item LIKE '%Reject%' AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "BGA — REJECT MARK",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 95
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 20,
+        "y": 23
+      },
+      "id": 31,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT ROUND(SUM(CASE WHEN Item='PASS' THEN 1.0 ELSE 0 END)/COUNT(*)*100,2) AS value FROM inspection_results WHERE InspectionType=3 AND date(StartTIme)=date('now','+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "BGA — YIELD",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 32,
+      "panels": [],
+      "title": "불량 추이",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "시간대별 불량 건수. 급증 구간이 유지보수 개입 시점.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 0,
+        "y": 27
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:00:00Z', datetime(StartTIme, '-9 hours')) AS time, COUNT(*) AS fail_count FROM inspection_results WHERE Item != 'PASS' AND StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "불량 발생 추이 (시간당)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "불량 원인 분포. 상위 원인부터 정렬.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 13,
+        "x": 11,
+        "y": 27
+      },
+      "id": 3,
+      "options": {
+        "displayMode": "gradient",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {},
+        "valueMode": "color"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT Item AS error_type, COUNT(*) AS count FROM inspection_results WHERE Item != 'PASS' GROUP BY Item ORDER BY count DESC LIMIT 10",
+          "queryType": "table",
+          "rawQueryText": "SELECT Item AS error_type, COUNT(*) AS count FROM inspection_results WHERE Item != 'PASS' GROUP BY Item ORDER BY count DESC LIMIT 10",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "불량 유형별 건수",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "GOOD / NO DEVICE / REJECT / X-OUT 건수 추이.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 30,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GOOD"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NO_DEVICE"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "REJECT"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "XOUT"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item='PASS' THEN 1 ELSE 0 END) AS GOOD FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        },
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item LIKE '%NoDevice%' THEN 1 ELSE 0 END) AS NO_DEVICE FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "B",
+          "timeColumns": [
+            "time"
+          ]
+        },
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item!='PASS' AND Item NOT LIKE '%NoDevice%' AND Item NOT LIKE '%XOut%' THEN 1 ELSE 0 END) AS REJECT FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "C",
+          "timeColumns": [
+            "time"
+          ]
+        },
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item LIKE '%XOut%' THEN 1 ELSE 0 END) AS XOUT FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "D",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "불량 유형별 시계열 (1분 단위)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 47
+      },
+      "id": 36,
+      "panels": [],
+      "title": "검사 타입별 불량 추이",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "검사 타입별 불량 건수 추이. MARK=InspectionType 1, BGA=InspectionType 3, 2D CODE=DataCode 항목.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MARK_NG"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "BGA_NG"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DATACODE_NG"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 48
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item!='PASS' THEN 1 ELSE 0 END) AS MARK_NG FROM inspection_results WHERE InspectionType=1 AND StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        },
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item!='PASS' THEN 1 ELSE 0 END) AS BGA_NG FROM inspection_results WHERE InspectionType=3 AND StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "B",
+          "timeColumns": [
+            "time"
+          ]
+        },
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, SUM(CASE WHEN Item LIKE '%DataCode%' THEN 1 ELSE 0 END) AS DATACODE_NG FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "C",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "MARK / BGA / 2D CODE 불량 시계열 (1분 단위)",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "30s",
+  "schemaVersion": 40,
+  "tags": [
+    "gvision",
+    "inspection"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "02. Inspection 분석",
+  "uid": "gvision-quality",
+  "version": 25,
+  "weekStart": ""
+}

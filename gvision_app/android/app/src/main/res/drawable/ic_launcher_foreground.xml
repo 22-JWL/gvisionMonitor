@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 108dp x 108dp 어댑티브 아이콘 포그라운드 (안전 영역: 중앙 72dp 원) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 모니터 외곽 (뷰포트 기준 중앙 배치) -->
+    <path
+        android:fillColor="#1565C0"
+        android:pathData="M81,27H27C22.6,27 19,30.6 19,35v49.5c0,4.4 3.6,8 8,8h22.5l-5,11.5h27l-5,-11.5H81c4.4,0 8,-3.6 8,-8V35C89,30.6 85.4,27 81,27zM81,76.5H27V35h54V76.5z" />
+
+    <!-- 화면 안 차트 라인 -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#42A5F5"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M32,69 L42,57 L54,63 L66,48 L77,54" />
+
+    <!-- 최고점 강조 도트 -->
+    <path
+        android:fillColor="#42A5F5"
+        android:pathData="M66,48 m-5,-5 a5,5 0,1,0 10,0 a5,5 0,1,0 -10,0" />
+</vector>

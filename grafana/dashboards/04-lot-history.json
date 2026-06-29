@@ -1,0 +1,138 @@
+{
+  "title": "04. Lot 이력 비교",
+  "uid": "gvision-lots",
+  "tags": [
+    "gvision",
+    "lot"
+  ],
+  "refresh": "1m",
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Lot별 수율 비교",
+      "description": "Lot마다 수율을 비교. lot 테이블 미등록 시 LotId로 표시.",
+      "type": "bargauge",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 10
+      },
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "refId": "A",
+          "rawQueryText": "SELECT COALESCE(l.LotNumber, 'Lot#' || r.LotId) AS lot, ROUND(SUM(CASE WHEN r.Item = 'PASS' THEN 1.0 ELSE 0 END) / COUNT(*) * 100, 2) AS yield FROM inspection_results r LEFT JOIN lot l ON r.LotId = l.Id GROUP BY r.LotId ORDER BY r.LotId DESC LIMIT 10",
+          "timeColumns": []
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "minVizWidth": 0,
+        "minVizHeight": 10,
+        "text": {}
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "mappings": []
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 2,
+      "title": "Lot별 검사 건수",
+      "type": "table",
+      "gridPos": {
+        "x": 14,
+        "y": 0,
+        "w": 10,
+        "h": 10
+      },
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "options": {
+        "sortBy": [
+          {
+            "displayName": "LotId",
+            "desc": true
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "refId": "A",
+          "rawQueryText": "SELECT r.LotId, COALESCE(l.LotNumber, '(미등록)') AS LotNumber, COUNT(*) AS 전체, SUM(CASE WHEN r.Item = 'PASS' THEN 1 ELSE 0 END) AS PASS, SUM(CASE WHEN r.Item != 'PASS' THEN 1 ELSE 0 END) AS FAIL FROM inspection_results r LEFT JOIN lot l ON r.LotId = l.Id GROUP BY r.LotId ORDER BY r.LotId DESC LIMIT 10",
+          "timeColumns": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Lot 목록 (lot 테이블 등록된 것)",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 24,
+        "h": 10
+      },
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "options": {
+        "sortBy": [
+          {
+            "displayName": "Id",
+            "desc": true
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "refId": "A",
+          "rawQueryText": "SELECT l.Id, l.LotNumber AS 'Lot 번호', l.Package AS Recipe, strftime('%Y-%m-%d %H:%M', l.StartTime) AS '시작', strftime('%Y-%m-%d %H:%M', l.EndTime) AS '종료', COUNT(r.Id) AS 검사건수, ROUND(SUM(CASE WHEN r.Item = 'PASS' THEN 1.0 ELSE 0 END) / NULLIF(COUNT(r.Id),0) * 100, 1) AS '수율(%)' FROM lot l LEFT JOIN inspection_results r ON r.LotId = l.Id GROUP BY l.Id ORDER BY l.Id DESC LIMIT 20",
+          "timeColumns": []
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 39
+}

@@ -1,0 +1,1290 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      },
+      {
+        "datasource": {
+          "uid": "gvision_sqlite"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "blue",
+        "name": "LOT 이벤트",
+        "rawQuery": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS time, substr(Description,1,60) AS text, 'LOT' AS tags FROM histories WHERE LogType = 4 AND Time >= datetime('now', '-15 hours') ORDER BY Time ASC",
+        "timeColumns": [
+          "time"
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "gvision_sqlite"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "purple",
+        "name": "Recipe 변경",
+        "rawQuery": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS time, substr(Description,1,60) AS text, 'Recipe' AS tags FROM histories WHERE LogType = 5 AND Time >= datetime('now', '-15 hours') ORDER BY Time ASC",
+        "timeColumns": [
+          "time"
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "gvision_sqlite"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "red",
+        "name": "시스템 이벤트",
+        "rawQuery": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS time, trim(substr(Description,1,60)) AS text, 'System' AS tags FROM histories WHERE LogType = 1 AND Time >= datetime('now', '-15 hours') ORDER BY Time ASC",
+        "timeColumns": [
+          "time"
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "gvision_sqlite"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "orange",
+        "name": "Teaching 변경",
+        "rawQuery": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS time, CASE WHEN instr(Description,char(10))>0 THEN trim(substr(Description,1,instr(Description,char(10))-1)) ELSE trim(substr(Description,1,60)) END AS text, 'Teaching' AS tags FROM histories WHERE LogType = 5 AND Description LIKE '%Teaching%' AND Time >= datetime('now', '-15 hours') ORDER BY Time ASC",
+        "timeColumns": [
+          "time"
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "gvision_sqlite"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "dark-red",
+        "name": "시스템 예외 발생",
+        "rawQuery": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS time, CASE WHEN Description LIKE '%CameraTimeout%' OR Description LIKE '%NotInitializedCamera%' OR Description LIKE '%PrsImageDequeue%' THEN '[카메라] ' WHEN Description LIKE '%Udp%' THEN '[통신] ' WHEN Description LIKE '%Vision%' THEN '[비전] ' WHEN Description LIKE '%NoIllumination%' OR Description LIKE '%UnknownLight%' THEN '[조명] ' WHEN Description LIKE '%WrongSetting%' OR Description LIKE '%WrongGrid%' THEN '[설정] ' ELSE '[시스템] ' END || substr(Description, instr(Description, '] ')+2, 50) AS text, 'exception' AS tags FROM histories WHERE LogType=1 AND Description LIKE '%Exception:%' AND Time >= datetime('now', '-15 hours') ORDER BY Time ASC",
+        "timeColumns": [
+          "time"
+        ]
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 15,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "이벤트 발생 시점을 수율 그래프 위에 마킹. 어떤 이벤트 이후 수율이 떨어졌는지 확인.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 90,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, ROUND(SUM(CASE WHEN Item = 'PASS' THEN 1.0 ELSE 0 END) / COUNT(*) * 100, 2) AS yield FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M:00', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "수율 + 이벤트 Annotation (알람 발생 맥락)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "LogType: 1=System, 4=LOT, 5=Recipe",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 14,
+        "x": 0,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "시각"
+          }
+        ]
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:%SZ', datetime(substr(Time,1,19), '-9 hours')) AS 시각, CASE LogType WHEN 1 THEN '시스템' WHEN 5 THEN CASE WHEN Description LIKE '%Teaching%' THEN 'Teaching' ELSE 'Recipe' END WHEN 4 THEN CASE WHEN Description NOT LIKE '%INSPECTION RESULT%' THEN 'LOT' ELSE 'Inspection' END ELSE CAST(LogType AS TEXT) END AS 구분, CASE WHEN instr(Description, char(10)) > 0 THEN trim(substr(Description,1,instr(Description,char(10))-1)) ELSE trim(substr(Description,1,100)) END AS 내용 FROM histories WHERE Time >= datetime('now', '-15 hours') ORDER BY Time DESC LIMIT 100",
+          "refId": "A",
+          "timeColumns": [
+            "시각"
+          ]
+        }
+      ],
+      "title": "이벤트 타임라인",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 10,
+        "x": 14,
+        "y": 10
+      },
+      "id": 3,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT CASE LogType WHEN 1 THEN 'System' WHEN 2 THEN 'Inspection' WHEN 4 THEN 'LOT' WHEN 5 THEN 'Recipe' ELSE CAST(LogType AS TEXT) END AS 구분, COUNT(*) AS count FROM histories WHERE Time >= datetime('now', '-15 hours') GROUP BY LogType ORDER BY count DESC",
+          "queryType": "table",
+          "rawQueryText": "SELECT CASE LogType WHEN 1 THEN 'System' WHEN 2 THEN 'Inspection' WHEN 4 THEN 'LOT' WHEN 5 THEN 'Recipe' ELSE CAST(LogType AS TEXT) END AS 구분, COUNT(*) AS count FROM histories WHERE Time >= datetime('now', '-15 hours') GROUP BY LogType ORDER BY count DESC",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "구분별 이벤트 빈도",
+      "type": "barchart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 4,
+      "panels": [],
+      "title": "오류 분석",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "Grafana 알람 규칙 중 현재 Firing / Pending 상태인 항목이 표시됩니다.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "queryText": "SELECT\n    Time AS 시각,\n    CASE LogType\n      WHEN 1 THEN '시스템'\n      WHEN 2 THEN '검사'\n      WHEN 4 THEN 'LOT'\n      WHEN 5 THEN 'Recipe'\n    END AS 유형,\n    Description AS 내용\n  FROM histories\n  WHERE LogType = 1\n    AND (\n      Description LIKE '%Exception%'\n      OR Description LIKE '%CameraTimeOut%'\n      OR Description LIKE '%VisionNotFound%'\n      OR Description LIKE '%UdpSend%'\n      OR Description LIKE '%UdpBinding%'\n      OR Description LIKE '%UdpSocket%'\n      OR Description LIKE '%HalconLicense%'\n      OR Description LIKE '%NotInitializedCamera%'\n      OR Description LIKE '%CameraTrigger%'\n      OR Description LIKE '%VisionIf%'\n    )\n  ORDER BY Time DESC\n  LIMIT 10",
+          "queryType": "table",
+          "rawQueryText": "SELECT\n    Time AS 시각,\n    CASE LogType\n      WHEN 1 THEN '시스템'\n      WHEN 2 THEN '검사'\n      WHEN 4 THEN 'LOT'\n      WHEN 5 THEN 'Recipe'\n    END AS 유형,\n    Description AS 내용\n  FROM histories\n  WHERE LogType = 1\n    AND (\n      Description LIKE '%Exception%'\n      OR Description LIKE '%CameraTimeOut%'\n      OR Description LIKE '%VisionNotFound%'\n      OR Description LIKE '%UdpSend%'\n      OR Description LIKE '%UdpBinding%'\n      OR Description LIKE '%UdpSocket%'\n      OR Description LIKE '%HalconLicense%'\n      OR Description LIKE '%NotInitializedCamera%'\n      OR Description LIKE '%CameraTrigger%'\n      OR Description LIKE '%VisionIf%'\n    )\n  ORDER BY Time DESC\n  LIMIT 10",
+          "refId": "A",
+          "timeColumns": [
+            "time",
+            "ts"
+          ]
+        }
+      ],
+      "title": "최근 오류 로그",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 30
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories WHERE LogType=1 AND Description LIKE '%Exception:%' AND date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "예외 발생 건수 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 30
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%Camera%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%Camera%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "카메라 오류 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 30
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories WHERE LogType=1 AND (Description LIKE '%UdpBinding%' OR Description LIKE '%UdpSend%' OR Description LIKE '%UdpSocket%') AND date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "통신 오류 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "예외 종류별 누적 빈도. 가장 많은 유형부터 우선 점검.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "id": 13,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT\r\n    CASE\r\n      WHEN Description LIKE '%Camera%' THEN '카메라'\r\n      WHEN Description LIKE '%Udp%'\r\n        OR Description LIKE '%Socket%' THEN '통신'\r\n      WHEN Description LIKE '%Vision%'\r\n        OR Description LIKE '%Halcon%' THEN '비전'\r\n      WHEN Description LIKE '%조명%'\r\n        OR Description LIKE '%Light%' THEN '조명'\r\n      WHEN Description LIKE '%Exception%' THEN '예외'\r\n      ELSE '기타'\r\n    END AS 유형,\r\n    COUNT(*) AS 건수\r\n  FROM histories\r\n  WHERE LogType = 1\r\n    AND Time >= datetime('now', '-24 hours')\r\n  GROUP BY 유형\r\n  ORDER BY 건수 DESC",
+          "queryType": "table",
+          "rawQueryText": "SELECT\r\n    CASE\r\n      WHEN Description LIKE '%Camera%' THEN '카메라'\r\n      WHEN Description LIKE '%Udp%'\r\n        OR Description LIKE '%Socket%' THEN '통신'\r\n      WHEN Description LIKE '%Vision%'\r\n        OR Description LIKE '%Halcon%' THEN '비전'\r\n      WHEN Description LIKE '%조명%'\r\n        OR Description LIKE '%Light%' THEN '조명'\r\n      WHEN Description LIKE '%Exception%' THEN '예외'\r\n      ELSE '기타'\r\n    END AS 유형,\r\n    COUNT(*) AS 건수\r\n  FROM histories\r\n  WHERE LogType = 1\r\n    AND Time >= datetime('now', '-24 hours')\r\n  GROUP BY 유형\r\n  ORDER BY 건수 DESC",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "오류 유형별 발생 횟수",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 34
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%Vision%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%Vision%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "비전 오류 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 34
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%조명%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%조명%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "조명 오류 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 34
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%설정%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories\r\n  WHERE LogType = 1\r\n    AND (\r\n      Description LIKE '%설정%'\r\n      OR Description LIKE '%Halcon%'\r\n    )\r\n    AND date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "설정 오류 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "빨간 수직선 = 예외 발생 시각. 오류 직후 수율 변화를 추적.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 85,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 98
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, ROUND(SUM(CASE WHEN Item = 'PASS' THEN 1.0 ELSE 0 END) / COUNT(*) * 100, 2) AS yield FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M:00', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "수율 추이 — 오류 발생 시점 마킹",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "처리시간 급등 = 카메라/조명 이상. 오류 annotation과 시점 대조.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_ms"
+            },
+            "properties": [
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    4,
+                    4
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "최대"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_ms"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "평균"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 47
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, ROUND(AVG(Duration), 1) AS avg_ms, MAX(Duration) AS max_ms FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M:00', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "처리시간 (Duration) — 카메라 응답 속도 지표",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "description": "한쪽으로 지속 이동 = Alignment 이상. VisionNotFoundException 발생 전 패턴 확인.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 5,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.05
+              },
+              {
+                "color": "red",
+                "value": 0.1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "x_offset"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "XOffset"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "y_offset"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "YOffset"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 47
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT strftime('%Y-%m-%dT%H:%M:00Z', datetime(StartTIme, '-9 hours')) AS time, ROUND(AVG(XOffset), 3) AS x_offset, ROUND(AVG(YOffset), 3) AS y_offset FROM inspection_results WHERE StartTIme >= datetime('now', '-15 hours') GROUP BY strftime('%Y-%m-%dT%H:%M:00', datetime(StartTIme, '-9 hours')) ORDER BY time ASC",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "XOffset / YOffset 드리프트 — 비전 정렬 지표",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "10s",
+  "schemaVersion": 40,
+  "tags": [
+    "gvision",
+    "events",
+    "alert"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "03. 이벤트 분석",
+  "uid": "gvision-events",
+  "version": 17,
+  "weekStart": ""
+}

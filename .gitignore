@@ -1,0 +1,17 @@
+# Node.js
+node_modules/
+server/node_modules/
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# 임시 파일
+$null
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+.vs/

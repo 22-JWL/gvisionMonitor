@@ -1,0 +1,808 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 13,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "uid": "gvision_api"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "gray",
+                  "text": "OFFLINE"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "1": {
+                  "color": "green",
+                  "text": "RUN"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "2": {
+                  "color": "yellow",
+                  "text": "SETUP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "gray",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 1,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "value",
+              "text": "모드",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "uid": "gvision_api"
+          },
+          "filters": [],
+          "format": "table",
+          "queryType": "infinity",
+          "refId": "A",
+          "source": "url",
+          "type": "csv",
+          "url": "http://localhost:4000/api/status/mode",
+          "url_options": {
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "장비 모드",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_api"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "gray",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 7,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "connectedClients",
+              "text": "연결수",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "uid": "gvision_api"
+          },
+          "filters": [],
+          "format": "table",
+          "queryType": "infinity",
+          "refId": "A",
+          "root_selector": "rows",
+          "source": "url",
+          "type": "json",
+          "url": "http://localhost:4000/api/status",
+          "url_options": {
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "모바일 연결 수",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_status_db"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "fillOpacity": 100,
+              "type": "colored-background"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 13,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "xl",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_status_db"
+          },
+          "rawQueryText": "SELECT value AS LotNo FROM current_status WHERE key = 'lotNo' LIMIT 1",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "현재 Lot 번호",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_status_db"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "fillOpacity": 80,
+              "type": "colored-background"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 18,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "cellHeight": "xl",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_status_db"
+          },
+          "queryText": "SELECT value AS Recipe FROM current_status WHERE key = 'recipeName' LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT value AS Recipe FROM current_status WHERE key = 'recipeName' LIMIT 1",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "현재 Recipe",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 11,
+      "panels": [],
+      "title": "오늘 요약",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 100,
+          "min": 90,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 98
+              },
+              {
+                "color": "green",
+                "value": 99
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 1,
+        "y": 4
+      },
+      "id": 6,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT ROUND(SUM(CASE WHEN Item='PASS' THEN 1.0 ELSE 0 END)/COUNT(*)*100,2) AS value FROM inspection_results WHERE StartTIme >= date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "현재 수율 (최근 5분)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "총 검사 건수 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 150
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 7,
+        "x": 16,
+        "y": 4
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT ROUND(AVG(Duration),1) AS value FROM inspection_results WHERE date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "평균 처리시간 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 8,
+        "y": 7
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "rawQueryText": "SELECT COUNT(*) AS value FROM histories WHERE date(Time) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "이벤트 발생 수 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 7,
+        "x": 16,
+        "y": 7
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE Item != 'PASS' AND date(StartTIme) = date('now', '+9 hours')",
+          "rawQueryText": "SELECT COUNT(*) AS value FROM inspection_results WHERE Item != 'PASS' AND date(StartTIme) = date('now', '+9 hours')",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "불량 건수 (오늘)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "gvision_sqlite"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "구분"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "시스템": {
+                        "color": "red",
+                        "text": "시스템"
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "LOT": {
+                        "color": "blue",
+                        "text": "LOT"
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "Recipe": {
+                        "color": "purple",
+                        "text": "Recipe"
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "Teaching": {
+                        "color": "orange",
+                        "text": "Teaching"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "시각"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 22,
+        "x": 1,
+        "y": 10
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "시각"
+          }
+        ]
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "gvision_sqlite"
+          },
+          "queryText": "SELECT strftime('%Y-%m-%d %H:%M:%S', datetime(substr(Time,1,19), '-9 hours')) AS 시각, CASE LogType WHEN 1 THEN '시스템' WHEN 5 THEN CASE WHEN Description LIKE '%Teaching%' THEN 'Teaching' ELSE 'Recipe' END WHEN 4 THEN 'LOT' ELSE CAST(LogType AS TEXT) END AS 구분, CASE WHEN instr(Description, char(10)) > 0 THEN trim(substr(Description,1,instr(Description,char(10))-1)) ELSE trim(substr(Description,1,100)) END AS 내용 FROM histories WHERE (LogType=1 OR LogType=5 OR (LogType=4 AND Description NOT LIKE '%INSPECTION RESULT%')) ORDER BY Time DESC LIMIT 50",
+          "rawQueryText": "SELECT strftime('%Y-%m-%d %H:%M:%S', datetime(substr(Time,1,19), '-9 hours')) AS 시각, CASE LogType WHEN 1 THEN '시스템' WHEN 5 THEN CASE WHEN Description LIKE '%Teaching%' THEN 'Teaching' ELSE 'Recipe' END WHEN 4 THEN 'LOT' ELSE CAST(LogType AS TEXT) END AS 구분, CASE WHEN instr(Description, char(10)) > 0 THEN trim(substr(Description,1,instr(Description,char(10))-1)) ELSE trim(substr(Description,1,100)) END AS 내용 FROM histories WHERE (LogType=1 OR LogType=5 OR (LogType=4 AND Description NOT LIKE '%INSPECTION RESULT%')) ORDER BY Time DESC LIMIT 50",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "최근 이벤트 로그",
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 40,
+  "tags": [
+    "gvision",
+    "status"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "01. 장비 실시간 상태",
+  "uid": "gvision-status",
+  "version": 25,
+  "weekStart": ""
+}

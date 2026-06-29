@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 앱 테마와 동일한 다크 배경 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0D1B2A" />
+        </shape>
+    </item>
+
+    <!-- 중앙 GVision 로고 -->
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/splash_logo" />
+</layer-list>
